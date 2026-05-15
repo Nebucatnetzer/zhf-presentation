@@ -1,0 +1,23 @@
+on:
+  push:
+    branches: [ "main", "setup"]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io/${{ github.repository }}
+  REGISTRY_USER: ${{ github.actor }}
+  REGISTRY_PASS: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build-presentation:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: wimpysworld/nothing-but-nix@main
+      - uses: cachix/install-nix-action@v31.3.0
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Build presentation
+        run: nix build
+      - uses: actions/upload-artifact@v7
+        with:
+          path: result/presentation.pdf
