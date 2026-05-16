@@ -40,11 +40,13 @@
             buildPhase = ''
               mkdir $out
               typst compile main.typ $out/${pdfName}.pdf
+              polylux2pdfpc main.typ
+              cp main.pdfpc $out/${pdfName}.pdfpc
             '';
           };
           present = pkgs.writeShellScriptBin "present" ''
             result=$(nix build --no-link --print-out-paths)
-            ${pkgs.pdfpc}/bin/pdfpc ${pdfName}.pdf
+            ${pkgs.pdfpc}/bin/pdfpc "$result"/${pdfName}.pdf
           '';
           watch = pkgs.writeShellScriptBin "typst-watch" ''
             ${typstEnvironment}/bin/typst watch src/main.typ --open xdg-open ${pdfName}.pdf
