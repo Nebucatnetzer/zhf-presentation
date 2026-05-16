@@ -52,7 +52,7 @@ nix-build maintainers/scripts/build.nix \
 *Non-Flakes*
 
 ```bash
-nixos-rebuild build -I nixpkgs=.r
+nixos-rebuild build -I nixpkgs=.
 ```
 
 *Flakes*
