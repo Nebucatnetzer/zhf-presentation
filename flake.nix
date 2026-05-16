@@ -32,12 +32,21 @@
             inherit TYPST_FONT_PATHS;
             name = "zhf-presentation";
             src = ./src;
-            buildInputs = [ typstEnvironment ];
+            buildInputs = [
+              pkgs.polylux2pdfpc
+              typstEnvironment
+            ];
             buildPhase = ''
               mkdir $out
               typst compile main.typ $out/presentation.pdf
+              polylux2pdfpc main.typ
+              cp main.pdfpc $out/presentation.pdfpc
             '';
           };
+          present = pkgs.writeShellScriptBin "present" ''
+            result=$(nix build --no-link --print-out-paths)
+            ${pkgs.pdfpc}/bin/pdfpc presentation.pdf
+          '';
           watch = pkgs.writeShellScriptBin "typst-watch" ''
             ${typstEnvironment}/bin/typst watch src/main.typ --open xdg-open presentation.pdf
           '';
@@ -47,8 +56,10 @@
             inherit TYPST_FONT_PATHS;
           };
           packages = [
-            pkgs.typstyle
+            pkgs.pdfpc
+            pkgs.polylux2pdfpc
             pkgs.tinymist
+            pkgs.typstyle
             typstEnvironment
           ];
         };
