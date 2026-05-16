@@ -41,7 +41,7 @@ git clone --depth=1 git@github.com:NixOS/nixpkgs.git
 == Identify a broken package: Package maintainers manually
 
 ```bash
-nix build maintainers/scripts/build.nix \
+nix-build maintainers/scripts/build.nix \
   --argstr maintainer YOUR_NICK
 ```
 
