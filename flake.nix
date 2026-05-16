@@ -20,6 +20,7 @@
             pkgs.fira
           ];
         };
+        pdfName = "presentation";
         TYPST_FONT_PATHS = "${fonts}/share/fonts";
         typstEnvironment = pkgs.typst.withPackages (p: [
           p.metropolyst
@@ -38,17 +39,15 @@
             ];
             buildPhase = ''
               mkdir $out
-              typst compile main.typ $out/presentation.pdf
-              polylux2pdfpc main.typ
-              cp main.pdfpc $out/presentation.pdfpc
+              typst compile main.typ $out/${pdfName}.pdf
             '';
           };
           present = pkgs.writeShellScriptBin "present" ''
             result=$(nix build --no-link --print-out-paths)
-            ${pkgs.pdfpc}/bin/pdfpc presentation.pdf
+            ${pkgs.pdfpc}/bin/pdfpc ${pdfName}.pdf
           '';
           watch = pkgs.writeShellScriptBin "typst-watch" ''
-            ${typstEnvironment}/bin/typst watch src/main.typ --open xdg-open presentation.pdf
+            ${typstEnvironment}/bin/typst watch src/main.typ --open xdg-open ${pdfName}.pdf
           '';
         };
         devShells.default = pkgs.mkShellNoCC {
