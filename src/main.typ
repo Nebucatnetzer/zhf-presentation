@@ -26,6 +26,8 @@ ZHF issue with more details: https://github.com/NixOS/nixpkgs/issues/516381
 
 == Update local nixpkgs
 
+#pdfpc.speaker-note("Use git pull or do a new fork.")
+
 ```bash
 git clone --depth=1 git@github.com:NixOS/nixpkgs.git
 ```
@@ -73,6 +75,8 @@ https://malob.github.io/nix-review-tools-reports/
 
 == Identify a broken package: Viewing the logs on Hydra
 
+#pdfpc.speaker-note("Mention how to find the package name.")
+
 #image("images/hydra_logs.png")
 
 = Verify the package is broken
@@ -90,12 +94,16 @@ nix-build -A NAME
 
 == Verify the package is broken: Somebody else fixed it already
 
+#pdfpc.speaker-note("You can use nixpkgs-review but only for smaller packages. It builds all the downstream packages as well which can be a lot.")
+
 Help test and review the PR.
 
 #image("images/review_pull_request.png", height: 80%)
 
 = Fix the package
 == Fix the package: Locate the source (happy case)
+
+#pdfpc.speaker-note("Or just use grep. Packages with generators can be hard.")
 
 #slide[
 Open the REPL from within Nixpkgs with:
@@ -162,6 +170,8 @@ git push --set-upstream SOME_NAME HEAD
 #image("images/git_switch.png")
 
 == Upstreaming the fix: Create a pull request
+
+#pdfpc.speaker-note("If you can't add the labels aks on Matrix. Only maintainers can do it.")
 
 #image("images/create_pull_request.png", height: 60%)
 
