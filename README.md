@@ -19,5 +19,5 @@ NOTE This script is intended to be run on Linux as it uses `xdg-open` you can us
 To present:
 
 ```bash
-nix run .#present
+nix run github:Nebucatnetzer/zhf-presentation#present
 ```

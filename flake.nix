@@ -21,6 +21,21 @@
           ];
         };
         pdfName = "presentation";
+        presentation = pkgs.stdenvNoCC.mkDerivation {
+          inherit TYPST_FONT_PATHS;
+          name = "zhf-presentation";
+          src = ./src;
+          buildInputs = [
+            pkgs.polylux2pdfpc
+            typstEnvironment
+          ];
+          buildPhase = ''
+            mkdir $out
+            typst compile main.typ $out/${pdfName}.pdf
+            polylux2pdfpc main.typ
+            cp main.pdfpc $out/${pdfName}.pdfpc
+          '';
+        };
         TYPST_FONT_PATHS = "${fonts}/share/fonts";
         typstEnvironment = pkgs.typst.withPackages (p: [
           p.metropolyst
@@ -29,24 +44,9 @@
       in
       {
         packages = {
-          default = pkgs.stdenvNoCC.mkDerivation {
-            inherit TYPST_FONT_PATHS;
-            name = "zhf-presentation";
-            src = ./src;
-            buildInputs = [
-              pkgs.polylux2pdfpc
-              typstEnvironment
-            ];
-            buildPhase = ''
-              mkdir $out
-              typst compile main.typ $out/${pdfName}.pdf
-              polylux2pdfpc main.typ
-              cp main.pdfpc $out/${pdfName}.pdfpc
-            '';
-          };
+          default = presentation;
           present = pkgs.writeShellScriptBin "present" ''
-            result=$(nix build --no-link --print-out-paths)
-            ${pkgs.pdfpc}/bin/pdfpc "$result"/${pdfName}.pdf
+            ${pkgs.pdfpc}/bin/pdfpc "${presentation}/${pdfName}.pdf"
           '';
           watch = pkgs.writeShellScriptBin "typst-watch" ''
             ${typstEnvironment}/bin/typst watch src/main.typ --open xdg-open ${pdfName}.pdf
