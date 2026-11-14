@@ -179,10 +179,22 @@ Label with: `ZHF Fixes` and #githubLabel and mention `#ZurichZHF` !
 
 = Repeat!
 
+= New Tools
+
+== Maintainermode
+
+#image("images/maintainermode.png")
+
+== Nixkeeper
+
+#image("images/nixkeeper.png")
+
 == Link Collection
 - #link(linkToGithubIssue)[ZHF Guide in Nixpkgs]
 - #link("https://zh.fail/failed/overview.html")[Failures by maintainer]
 - #link("https://malob.github.io/nix-review-tools-reports/")[Failures by jobset]
+- #link("https://maintainermode.org/zhf")[Maintainermode, tool by Numtide, allows to pick a random package]
+- #link("https://nixkeeper.com/?view=attention&filter=builds")[Nixkeeper, tons of filters!]
 - #link(
     "https://nixos.org/manual/nixpkgs/stable/#sec-building-stdenv-package-in-nix-shell",
   )[Guide to changing the source a package]
