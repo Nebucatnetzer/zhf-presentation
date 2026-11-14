@@ -1,8 +1,8 @@
 // Update these for each event {
 
-#let linkToGithubIssue = "https://github.com/NixOS/nixpkgs/issues/516381"
-#let githubLabel = `backport release-26.05`
-#let buildDate = "2026-05-16" // otherwise you get 1980-01-01
+#let linkToGithubIssue = "https://github.com/NixOS/nixpkgs/issues/584347"
+#let githubLabel = `backport release-26.11`
+#let buildDate = "2026-11-14" // otherwise you get 1980-01-01
 
 // }
 
@@ -20,7 +20,7 @@
 
 #outline(title: [Overview], depth: 1)
 
-ZHF issue with more details: https://github.com/NixOS/nixpkgs/issues/516381
+ZHF issue with more details: #link(linkToGithubIssue)
 
 = Update local nixpkgs
 
